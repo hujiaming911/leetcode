@@ -1,0 +1,22 @@
+class Solution {
+    public int findMin(int[] nums) {
+        int start=0;
+        int end=nums.length-1;
+        while(start<=end){
+            int mid=(end-start)/2+start;
+            if(nums[mid]<nums[end]){
+                end=mid;
+            }else if(nums[mid]>nums[end]){
+                start=mid+1;
+            }else{
+                end--;
+            }
+        }
+        return nums[start];
+    }
+}
+
+
+
+不同于153的是，当nums[mid]=nums[end]时，不一定是范围缩到1找到最小的了，而更有可能是真的相等重复，此时没有别的办法只能把end--,这样worst case就是全扫描一遍
+时间复杂度是on而不是ologn
