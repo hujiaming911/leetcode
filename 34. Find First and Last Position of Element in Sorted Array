@@ -1,0 +1,46 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int first=findfirst(nums,target);
+        int last=findlast(nums,target);
+        int[] arr=new int[]{first,last};
+        return arr;
+    }
+    public int findfirst(int[] nums, int target){
+        int index=-1;
+        int start=0;
+        int end=nums.length-1;
+        while(start<=end){
+            int mid=(end-start)/2+start;
+            if(nums[mid]>=target){
+                end=mid-1;
+            }else{
+                start=mid+1;
+            }
+            if(nums[mid]==target){
+                index=mid;
+            }
+        }
+        return index;
+    }
+    public int findlast(int[] nums,int target){
+        int index=-1;
+        int start=0;
+        int end=nums.length-1;
+        while(start<=end){
+            int mid=(end-start)/2+start;
+            if(nums[mid]<=target){
+                start=mid+1;
+            }else{
+                end=mid-1;
+            }
+            if(nums[mid]==target){
+                index=mid;
+            }
+        }
+        return index;
+    }
+}
+
+就是用binary search找出现的第一个元素和最后一个元素，把两个结合一下
+找第一个元素，就是当找到了nums[mid]==target时,要往下压，找之前的，所以此时end=mid-1
+找最后一个元素，就是当找到了nums[mid]==target时，要往上找，找之后的，所以此时start=mid+1
