@@ -26,5 +26,7 @@ class Solution {
 这样的话时间复杂度o n              空间复杂度o n
 
 set的长度set.size()
+set添加set.add()
+set是否包含set.contains()
 遍历set方法：for(Integer num:set)
 
