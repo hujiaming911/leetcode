@@ -1,0 +1,46 @@
+arraylist.add()里面可以直接放想加入的元素，这样就放在了末尾
+也可以arraylist.add(位置，元素)这样就指定位置放置，并把后面的往后移
+如一个list里面是  输出0 输出1  输出2 输出3 输出4   如果arraylist.add(3,100) 那就变成了 输出0 输出1 输出2 100 输出3 输出4
+
+
+
+class Solution {
+ public List<Integer> countSmaller(int[] nums) {
+    List<Integer> res=new ArrayList<>();
+    List<Integer> sorted = new ArrayList<Integer>();
+    for (int i = nums.length - 1; i >= 0; i--) {
+        int index = findIndex(sorted, nums[i]);
+        res.add(0,index);
+        sorted.add(index, nums[i]);
+    }
+    return res;
+}
+private int findIndex(List<Integer> sorted, int target) {
+    if (sorted.size() == 0) return 0;
+    int start = 0;
+    int end = sorted.size() - 1;
+    if (sorted.get(end) < target) return end + 1;
+    if (sorted.get(start) >= target) return 0;
+    while (start  <= end) {
+        int mid = start + (end - start) / 2;
+        if (sorted.get(mid) < target) {
+            start = mid + 1;
+        } else {
+            end = mid-1;
+        }
+    }
+    return start;
+}
+}
+
+基本思想就是 比如 4 4 2 3 1 1这个数组，对应答案应该是4 4 2 2 0 0 
+把原数组从后面遍历，把每个元素拿出来，按照从小到大排的顺序放进一个新的array，这个新的array里面的index就对应了答案
+如1先拿出来，放进来放到0位置上；第二个1拿出来，小于等于第一个1，所以也放到第0位置上（虽然此时第一个1被挤到index1,但返回的index是0）
+3拿出来，比任何一个元素（两个1）都大，直接放进index2,2拿出来，binarysearch......
+res.add(0,index)就是不断把新得到的index放在输出list的第一位（因为是从后往前拿的）
+sorted.add(index,nums[i])就是把nums[i]真正的放进index位置上
+
+具体的细节，边界条件关于等号问题，假如1是最小元素，已经放了一个1了，这时候再进来一个1，按照答案新的1的index还应该是0（因为如果1最小那么它右边不可能有
+比他还小的），所以此时也应该返回0；假如4是最大元素，已经放了一个4了，这时候再进来一个4，如果把新4放到原4的右面，则返回的index会多1，多这个1就是因为放
+到右面就相当于承认新4比旧4要大1
+这也是为什么二分法中要采用往下压即得到第一个位置的原因，当新加入的元素和原有的元素相同时，往前放，往下压，才能得到正确的index
