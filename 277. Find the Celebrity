@@ -1,0 +1,29 @@
+leetcode要钱
+描述一下题意
+找名人，n个人（0到n-1）有一个名人
+其他所有人都认识这个名人，这个名人不认识任何其他人
+know(a,b)是一个给定的函数，表示a是否认识b  返回true就是认识   返回false就是不认识
+让最小次数的找到这个名人
+
+
+
+        int possible=0;
+        for(int i=1;i<n;i++){
+            if(know(possible,i)){
+                possible=i;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(possible!=i&&(know(possible,i)||!know(i,possible))){
+                return -1;
+            }
+        }
+
+0如果认识1，则0肯定不是了，并把possible给1，
+1如果不认识2，则2肯定不是了，此时possible还是1
+1如果认识3，则1肯定不是了，并把possible给3
+3如果不认识4，则4肯定不是了，此时possible还是3
+3如果不认识5，则5肯定不是了，此时possible还是3
+其实在第一次循环就已经找到了名人
+第二个循环是如果题目说有0个或1个名人的话，那么再验证一下
+时间on    空间o1
