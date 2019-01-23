@@ -1,0 +1,32 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        if(nums.length==0){
+            return 1;
+        }
+        int temp=0;
+        for(int i=0;i<nums.length;i++){
+            while(nums[i]>0&&nums[i]<=nums.length&&nums[nums[i]-1]!=nums[i]){
+                temp=nums[nums[i]-1];
+                nums[nums[i]-1]=nums[i];
+                nums[i]=temp;
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=i+1){
+                return i+1;
+            }
+        }
+        return nums.length+1;
+    }
+}
+
+
+最先缺失的正整数
+那么如果一个数组里面有五个数（先不管他是什么），那么index一定是0,1,2,3,4，如果index底下对应的数是负数或者大于5，则他们一定是多余的（即不是被缺失的）
+也就是说如果index0,1,2,3,4,分别对应的是1,2,3,4，5时才正好缺6（nums.length+1）,那么只要把数组按index排序，再重新走一遍，只要发现不是nums[index]==index+1
+的，就是最先缺的那个数
+那么如何排序呢？
+排序的目的就是为了在index上放上index+1的数，也就是说换到nums[index]==index+1的时候就好了，也就是nums[index]-1==index
+如果不是的时候就继续换，那么换就要换nums对应的数,所以两边各加nums
+nums[nums[index]-1]==nums[index]此时就换好了
+至于负数和大于数组长度的数不用考虑他们
