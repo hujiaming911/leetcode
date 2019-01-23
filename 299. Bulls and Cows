@@ -1,0 +1,38 @@
+class Solution {
+    public String getHint(String secret, String guess) {
+        int bull=0;
+        int cow=0;
+        int[] arr=new int[10];
+        for(int i=0;i<secret.length();i++){
+            if(secret.charAt(i)==guess.charAt(i)){
+                bull++;
+            }
+            else{
+                if(arr[secret.charAt(i)-'0']++<0){
+                    cow++;
+                }
+                if(arr[guess.charAt(i)-'0']-->0){
+                    cow++;
+                }
+            }
+        }
+        return bull+"A"+cow+"B";
+    }
+}
+
+
+如果某一个位置相等，就bull加一好理解
+如果不相等，新建一个数组，表示从0到9的数
+secret.charAt(i)-'0'和guess.charAt(i)-'0'就是猜的每一个数换成int形式
+先判断arr[]是不是小于或大于0，然后再对其进行自加自减操作
+以7810和1807为例
+i=0之后数组里面
+0  1  2  3  4  5  6  7  8  9 
+0  -1  0  0  0 0  0  1  0  0
+i=1时bull自加了
+i=2之后数组里面
+0  1  2  3  4  5  6  7  8  9 
+-1 0  0  0  0  0  0  1 0   0     1的-1被自加成0了，同时在其等于-1时满足了条件，cow加了一
+i=3之后数组里面
+0  1  2  3  4  5  6  7  8  9 
+0  0  0  0  0  0  0  0  0  0     同理，0的-1加成0了，7的1减成0了
