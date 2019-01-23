@@ -1,0 +1,31 @@
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        if(gas.length!=cost.length){
+            return -1;
+        }
+        int start=0;
+        int total=0;
+        int current=0;
+        for(int i=0;i<gas.length;i++){
+            total+=gas[i]-cost[i];
+            if(current<0){
+                current=gas[i]-cost[i];
+                start=i;
+            }else{
+                current+=gas[i]-cost[i];
+            }
+        }
+        return  total>=0?start:-1;
+    }
+}
+
+
+有一个理论就是如果一个数组
+累加和为非负，那么一定有一个位置，从这个位置绕这个数组走一圈，累加和一直都是非负
+这是一个数学结论
+所以total就是一直累加gas[i]-cost[i],如果total最后小于0那么返回-1，大于等于0就至少存在这么一个位置
+那么究竟是哪个位置呢？
+假如从站1出发，经过站2，站3，结果到不了站4，那么就不需要考虑最开始从站2，站3出发的情况了
+因为无论站2站3的gas[i]-cost[i]是不是正的，站1的gas[i]-cost[i]一定是正的，否则车开不出来（o(*￣︶￣*)o）
+那么加上站1累加的油都走不到的话，不加站1的油更走不到了
+所以此时直接考虑站4为起始站就可以了
