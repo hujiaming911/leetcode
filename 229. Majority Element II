@@ -1,0 +1,61 @@
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        List<Integer> list=new ArrayList<>();
+        if(nums.length==0){
+            return list;
+        }
+        int number1=0;
+        int count1=0;
+        int number2=0;
+        int count2=0;
+        for(int i=0;i<nums.length;i++){
+            if(number1==nums[i]){
+                count1++;
+            }else if(number2==nums[i]){
+                count2++;
+            }else if(count1==0){
+                number1=nums[i];
+                count1++;
+            }else if(count2==0){
+                number2=nums[i];
+                count2++;
+            }else{
+                count1--;
+                count2--;
+            }
+        }
+        count1=0;
+        count2=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==number1){
+                count1++;
+            }else if(nums[i]==number2){
+                count2++;
+            }
+        }
+        if(count1>nums.length/3){
+            list.add(number1);
+        }
+        if(count2>nums.length/3){
+            list.add(number2);
+        }
+        return list;
+    }
+}
+
+
+摩尔算法，就是用来看是不是一个数在数组中出现了n/2 或 n/3 次以上的
+基本思想就是出现一次记录一次，出现别的数就把出现的这个抵消，
+如果是n/3那么一个数组中只可能有两个数会满足次数大于n/3
+假如8个数，44433322,8/3等于2,大于两个的只有4和3  假如11个数55554444333，11/3等于3，大于等于三个的只有5和4
+极限情况就是只能有两个
+
+所以就搞两个数，number1和number2，count1和count2分别为次数
+如果碰到和他们相同的就加起来，如果count1和count2分别为0时表明是一开始或者之前累积的count被减掉了，此时就需要重新给number一个值，并count++
+如果碰到和他们不同的就减。
+
+做完这个循环，也不一定这两个数就绝对是
+因为假如1122333333333333这个例子中，只有一个3满足结果，但一开始number1=1 count1=2  number2=2 count2=2之后
+3出现两次就把两个count都减没了，又出现一次把number1变成3，count1变成1，但之后number2就始终没变过一直是2
+所以还要确定一下
+就是底下的验证环节
