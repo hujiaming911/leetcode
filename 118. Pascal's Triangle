@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        
+        List<List<Integer>> outlist=new ArrayList<>();
+        List<Integer> prelist=new ArrayList<>();
+        
+        
+        for(int i=0;i<numRows;i++){
+            List<Integer> inlist=new ArrayList<>();
+            for(int j=0;j<i+1;j++){
+                if(j==0||j==i){
+                    inlist.add(1);
+                }
+                else{
+                    inlist.add(prelist.get(j)+prelist.get(j-1));
+                }
+            }
+            prelist=inlist;
+            outlist.add(inlist);
+        }
+        return outlist;
+    }
+}
+
+没什么说的
+暴力解
+outlist装inlist
+outlist每循环一次里面新建一个inlist,每个inlist的大小和outlist所在循环次数有关
+新建一个prelist记录上一个inlist好把上两个相加
