@@ -1,0 +1,21 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        if (citations.length==0){
+            return 0;
+        }
+        int res=0;
+        Arrays.sort(citations);
+        for(int i=citations.length-1;i>=0;i--){
+            if(citations[i]>res){
+                res++;
+            }
+        }
+        return res;
+    }
+}
+
+
+排序后
+从后往前数
+最后一个肯定是被最多引用的，但没用，木桶效应，它只要大于0就好
+然后往前数
