@@ -1,0 +1,21 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<List<Integer>> outlist=new ArrayList<>();
+        List<Integer> prelist=new ArrayList<>();
+        for(int i=0;i<rowIndex+1;i++){
+            List<Integer> inlist=new ArrayList<>();
+            for(int j=0;j<i+1;j++){
+                if(j==0||j==i){
+                    inlist.add(1);
+                }else{
+                    inlist.add(prelist.get(j)+prelist.get(j-1));
+                }
+            }
+            prelist=inlist;
+            outlist.add(inlist);
+        }
+        return outlist.get(rowIndex);
+    }
+}
+
+更没什么好说的，118变了一下
