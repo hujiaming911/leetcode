@@ -1,0 +1,33 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        int result=0;
+        for(int i=citations.length-1;i>=0;i--){
+            if(citations[i]>result){
+                result++;
+            }
+        }
+        return result;
+    }
+}
+
+
+
+class Solution {
+    public int hIndex(int[] citations) {
+        int start=0;
+        int end=citations.length-1;
+        while(start<=end){
+            int mid=(end-start)/2+start;
+            if(citations[mid]==citations.length-mid){
+                return citations.length-mid;
+            }else if(citations[mid]<citations.length-mid){
+                start=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return citations.length-start;
+    }
+}
+
+第二种是binarysearch
