@@ -1,0 +1,50 @@
+TreeSet 放进去的时候已经是排好序的
+TreeSet的方法   set.floor()得到小于等于里面元素的最大元素
+               set.ceiling()得到大于等于里面元素的最小元素
+               
+               
+ 这个题的意思就是找一个数组里，index相差小于等于K，数字之间相差小于等于T的。如果有这样的就返回TRUE，没有就返回FALSE
+ 用Treeset来做，因为数组里面的数放到TreeSet里面就是放好顺序的
+ TreeSet里面相当于一个WINDOW
+ 假如一个数组15918   K=2  T=3
+ 放第一个数1,直接放进来
+ 放第二个数5，不满足T的条件，放进来
+ 放第三个数9，不满足T的条件，应该放进来，放进来了，但放进来之后在判断下一个数之前，要删掉Treeset里面第一个放进来的数（数组的第一个数），因为你的WINDOW要
+             保持为2，才能相当于让下一个进来的数与K=2的比较，所以删掉1
+ 放第四个数1，不满足T的条件，放进来，同时删掉第二个放进来的数5，此时Treeset剩91
+ 放第五个数8，满足条件，返回TRUE
+ 如何判断是否满足T的条件？
+ 新放进来的数是个小气鬼，如新放进来8,8只能接受[8-3,8+3]之间的数  也就说Treeset你里面的数可以比我8大，但要比8+3要小，否则不要你,不承认你比我大
+ 假如数组为1 5 12 1 8，那么到8的时候TreeSet剩下1和12,8不接受12比他大的事实，就找个了别的说他比我大
+ 这就用到了set.floor()和set.ceiling()
+ 
+ 
+ 
+ 
+ 
+ class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        TreeSet<Long> set=new TreeSet<>();
+        for(int i=0;i<nums.length;i++){
+            Long floor=set.floor((long)nums[i]+t);
+            Long ceiling=set.ceiling((long)nums[i]-t);
+            
+            if((floor != null &&floor>=nums[i])||(ceiling != null &&ceiling<=nums[i])){
+                return true;
+            }
+            
+            set.add((long)nums[i]);
+            if(i>=k){
+                set.remove((long)nums[i-k]);
+            }
+        }
+        return false;
+    }
+}
+
+
+
+
+里面注意要判断floor!=null 不能用int或long   而是要用Integer或Long  
+用Long不用Int是防止溢出
+ 
