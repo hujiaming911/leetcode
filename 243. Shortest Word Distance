@@ -1,0 +1,20 @@
+给一个数组
+给一个word1 给一个word2
+在数组中找到word1和word2的index
+一减就行了
+int index1=0;
+int index2=0;
+for(int i=0;i<word.length;i++){
+ if(word[i].equals(word1)){
+     index1=i;
+ }
+ if(word[i].equals(word2)){
+     index2=i;
+ }
+}
+return index2-index1;
+
+
+
+
+很简单，没有解释的必要
