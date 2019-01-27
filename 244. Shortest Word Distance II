@@ -1,0 +1,32 @@
+这道题相比较于上一题就是数组中出现的word可能重复
+两个函数，在函数外新建一个map, map第一个参数是出现的word，第二个参数是一个list，里面放前面word出现的index
+第一个函数把map装满，第二个函数找到最小的差值
+public Map<String,List<Integer>> map;
+public ShortWordDistance (String[] words){
+  map=new Hashmap<>();
+  for(int i=0;i<words.length;i++){
+   if(map.containsKey(words[i])){
+    map.get(words[i]).add(i);
+   }else{
+     List<Integer> list=new ArrayList<>();
+     list.add(i);
+     map.add(list);
+   }
+  }
+}
+public short(String word1, String word2){
+ List<Integer> list1=map.get(word1);
+ List<Integer> list2=map.get(word2);
+ int index1=0;
+ int index2=0;
+ int res=Integer.MAX_VALUE;
+ while(index1<list1.size()&&index2<list2.size()){
+    res=Math.min(res,Math.abs(list1.get(index1)-list2.get(index2)));
+    if(list1.get(index1)<list2.get(index2)){
+         index1++;     
+     }else{
+         index2++;
+     }
+ }
+ return res;
+}
