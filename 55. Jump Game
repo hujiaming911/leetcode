@@ -1,0 +1,20 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        int max=0;
+        for(int i=0;i<nums.length;i++){
+            if(i>max){
+                return false;
+            }
+            max=Math.max(max,nums[i]+i);
+        }
+        return true;
+    }
+}
+
+贪心算法
+在每一步都计算最多能跳到哪
+如23114
+2的时候，max=0;i=0   max=2   表示从此出发最多能走到index为2的时候
+3的时候, max=2;i=1   max=4   从此出发最多能走到index为4的时候
+1的时候，max=4;i=2   max=4    ........
+一旦超出了，就表示当前的max无法满足当前的index
