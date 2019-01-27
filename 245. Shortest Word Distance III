@@ -1,0 +1,26 @@
+这道题在之前题的基础上
+有可能两个word是一样的，而且这回只有一个函数
+public int ShortDistance(String[] words, String word1, String word2){
+   int a=-1
+   int b=-1
+   int res=Integer.MAX_VALUE;
+   for(int i=0;i<words.length;i++){
+       if(words[i].equals(word1)){
+         a=i;
+       }
+       if(words[i].equals(word2)){
+        if(word1.equals(word2)){
+          a=b;
+        }
+        b=i;
+       }
+       if(a!=-1&&b!=-1){
+        res=Math.min(res,Math.abs(b-a));
+       }
+   }
+   return res;
+}
+
+
+当word1和word2相同是，b总是接收新的index,把旧的index吐给a，
+只要AB不是-1就检查res保持其最小
