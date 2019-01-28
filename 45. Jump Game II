@@ -1,0 +1,24 @@
+记录从一开始跳到最后一个index的最小步数
+还是贪心算法
+比如23114这个数组
+2这个数一开始肯定得跳一步，最远能跳到第一个1那里，
+也就是说在第一个1之前，不用再跳了，记录下在这个过程中，有没有能跳更远的（即使有也不用跳，因为有的话就相当于第一跳从2跳到那个位置而不是第一个1了），发现
+3能跳更远，能直接跳到结束,那么就相当于从2到3跳了第一步，然后从3跳了第二步
+
+
+
+class Solution {
+    public int jump(int[] nums) {
+        int res=0;
+        int max=0;
+        int cur=0;
+        for(int i=0;i<nums.length-1;i++){
+            max=Math.max(max,nums[i]+i);
+            if(i==cur){
+                res++;
+                cur=max;
+            }
+        }
+        return res;
+    }
+}
