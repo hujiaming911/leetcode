@@ -1,0 +1,17 @@
+TreeSet<Integer> set=new TreeSet<>();
+TreeSet会自动排序
+遍历：
+Iterator it=set.iterator();
+while(it.hasNext()){
+ return (it.next());
+}
+
+
+
+leetcode用不到的
+Scanner sc=new Scanner(system.in);
+while(sc.hasNext()){
+  sc.next()  下一个String，见到空格或换行停止
+  sc.nextLine()  下一个String，见到换行才停止
+  sc.nextInt()  下一个int
+}
