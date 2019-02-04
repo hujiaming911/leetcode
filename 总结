@@ -10,6 +10,9 @@ while(it.hasNext()){
 string.substring(6)  得到一个新的string,从原始的6（包含）开始到最后
 string.substring(0,6)  得到一个新的string,从0（包含）到6（不包含）
 
+StringBuilder sb=new StringBuilder() 可以不声明stringbuilder的长度
+sb.append()
+
 
 
 leetcode用不到的
