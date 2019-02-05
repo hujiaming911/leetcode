@@ -25,6 +25,12 @@ StringBuilder sb=new StringBuilder() 可以不声明stringbuilder的长度
 sb.append()
 
 
+除了有Arrays.sort(数组名)，还可以Collections.sort(list名)，把list里面的数升序排列
+
+
+
+
+
 
 leetcode用不到的
 Scanner sc=new Scanner(system.in);
