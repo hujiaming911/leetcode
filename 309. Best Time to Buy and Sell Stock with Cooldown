@@ -1,0 +1,37 @@
+无限次数买卖，但是在卖之后加上冷冻期，至少一天
+DP
+基本思想就是
+buy[i]就是在i天以前最后一个操作为买时的最大利润
+sell[i]就是在i天以前最后一个操作为卖时的最大利润
+rest[i]就是在i天以前最后一个操作为冷冻时的最大利润
+
+
+price是给定数组里面每个价格。因为执行操作的顺序应该是 买--卖--冷冻--买 所以
+buy[i]=Math.max(rest[i-1]-price,buy[i-1])；
+sell[i]=Math.max(buy[i-1]+price,sell[i-1]);
+rest[i]=sell[i-1];
+
+
+所以以上式子可以化成
+buy[i]=Math.max(sell[i-2]-price,buy[i-1])；
+sell[i]=Math.max(buy[i-1]+price,sell[i-1]);
+
+所以代码就是
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int sell=0;
+        int sellpre=0;
+        int buy=Integer.MIN_VALUE;
+        int buypre=0;
+        for(int i=0;i<prices.length;i++){
+            buypre=buy;
+            buy=Math.max(sellpre-prices[i],buypre);
+            sellpre=sell;
+            sell=Math.max(buypre+prices[i],sellpre);
+        }
+        return sell;
+        
+    }
+}
