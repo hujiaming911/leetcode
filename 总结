@@ -3,6 +3,8 @@ Set
 set.add()
 删除
 set.remove()    括号里面直接放想要删除的元素
+是否包含
+set.contains()
 遍历
 Iterator it=set.iterator();
 while(it.hasNext()){
