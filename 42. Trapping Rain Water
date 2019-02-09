@@ -1,0 +1,48 @@
+这个题也是属于TWO POINTS
+不考虑每个墙和附近的墙之间水坑能积攒多少水
+只考虑两端的墙之间的积水
+比如一个图
+两端墙积的水的多少也是由短的那段决定的
+
+                    *
+        *           *  *     *
+   *    *  *     *  *  *  *  *  *
+0  1  2 3  4  5  6  7  8  9  10 11
+
+一开始left在0 right在11
+虽然0的位置小于11的位置，但此时0这块左边相当于没墙，所以不能积水，这实际上是这题的一个特殊情况
+接下来往下走，left<right left++
+此时左右分别在1和11的位置left>=right
+说明右边可能积水，那么只要以后右边的墙的高度不超过1就可能积水，
+right--
+此时左右分别在1和10的位置left<right
+说明左边可能积水，且只要以后左边的墙高度不超过1就可能积水
+left++
+此时左右分别在2和10的位置left<right
+说明左边可能积水，比较一下，2的位置上是0<1所以在此处积水了
+然后left++
+然后就是代码
+
+
+class Solution {
+    public int trap(int[] height) {
+        int left=0;
+        int right=height.length-1;
+        int leftmost=0;
+        int rightmost=0;
+        int result=0;
+        while(left<right){
+            if(height[left]<height[right]){
+                leftmost=Math.max(leftmost,height[left]);
+                result+=leftmost-height[left];
+                left++;
+            }else{
+                rightmost=Math.max(rightmost,height[right]);
+                result+=rightmost-height[right];
+                right--;
+            }
+        }
+        return result;
+    }
+}
+
