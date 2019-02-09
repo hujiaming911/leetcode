@@ -1,0 +1,32 @@
+搞一个set把数组里的每个数都装起来
+然后遍历数组里的每一个数，对于每一个遍历到的数来说
+看看set里面是不是包含比它大的数和比他小的数，如果包含看能到几，然后就是个范围
+要注意set.remove()会省很多时间
+因为假如对于100 3  5  4 2 这个数组来说
+在遍历到3的时候542都用过了 6-1-1结果就是4
+就不需要再遍历542了
+代码
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set=new HashSet<>();
+        int result=0;
+        for(int i=0;i<nums.length;i++){
+            set.add(nums[i]);
+        }
+        for(int i=0;i<nums.length;i++){
+            int down=nums[i]-1;
+            while(set.contains(down)){
+                set.remove(down);
+                down--;
+            }
+            int up=nums[i]+1;
+            while(set.contains(up)){
+                set.remove(up);
+                up++;
+            }
+            result=Math.max(result,up-down-1);
+        }
+        return result;
+    }
+}
