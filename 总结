@@ -1,27 +1,58 @@
 Set
+
 添加
 set.add()
+
 删除
 set.remove()    括号里面直接放想要删除的元素
+
 是否包含
 set.contains()
+
+大小
+set.size()
+
 遍历
 Iterator it=set.iterator();
 while(it.hasNext()){
  return (it.next());
 }
+
 特殊的TreeSet
 TreeSet<Integer> set=new TreeSet<>();
 TreeSet会自动排序
 
 
+
+
 Map
+
+添加
+map.put()
+
+得到
+map.get()
+
+给元素加一常用
+map.put(元素，map.getOrDefault(元素,0)+1);
+
+删除
+set.remove()  里面放key值
+
+是否包含
+map.containsKey()
+map.containsValue()
+
+大小
+map.size()
+
 遍历
 Iterator it=map.entrySet().iterator();
 while(it.hasNext()){
    Map.Entry entry=(Map.Entry)it.next();
    System.out.println(entry.getKey()+entry.getValue());
 }
+
 特殊的map
 LinkedHashMap相比较与HashMap的不同
 LinkedHashMap在遍历时按照加入的顺序遍历，HashMap的遍历时无序的遍历
@@ -29,7 +60,27 @@ Map<Integer,Integer> map=new LinkedHashMap<>();
 
 
 
+
+
+
 Queue
+Queue<String> q=new LinkedList<>();
+
+q.offer()在队列后面填上元素
+
+q.peek()返回头部元素
+
+q.poll()返回并删除头部元素
+
+遍历
+不动queue的遍历
+for(Integer x:q){
+    直接对x进行操作
+}
+将queue排空的遍历
+while(q.peek()!=null){
+   q.poll();
+}
 
 
 
@@ -37,11 +88,49 @@ Queue
 
 
 Stack
+Stack<Integer> stack=new Stack<>();
+
+stack.push()压栈
+
+stack.peek()返回头部元素
+
+stack.pop()返回并删除栈顶元素
+
+不动stack的遍历
+for(Integer x:stack){
+ 直接对x进行操作就行 
+}
+将stack排空的遍历
+while(!s.empty()){
+   s.pop();
+}
 
 
 
 
 ArrayList
+List<Integer> list=new ArrayList<>();
+
+添加
+list.add();
+
+指定位置添加
+list.add(位置，元素) 在指定位置添加，后面的元素往后移
+
+包含
+list.contains()
+
+得到元素
+list.get()输入的是位置，得到的是元素
+
+得到位置
+list.indexOf()输入的是元素，得到的是位置（第一个出现的位置）
+
+删除
+list.remove()输入的是元素，删除第一个出现位置上的元素
+
+替换
+list.set(位置，元素)替换
 
 特殊
 除了有Arrays.sort(数组名)，还可以Collections.sort(list名)，把list里面的数升序排列
