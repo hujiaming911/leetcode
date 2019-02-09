@@ -1,22 +1,52 @@
-TreeSet<Integer> set=new TreeSet<>();
-TreeSet会自动排序
-遍历：
+Set
+添加
+set.add()
+删除
+set.remove()    括号里面直接放想要删除的元素
+遍历
 Iterator it=set.iterator();
 while(it.hasNext()){
  return (it.next());
 }
+特殊的TreeSet
+TreeSet<Integer> set=new TreeSet<>();
+TreeSet会自动排序
 
-LinkedHashMap相比较与HashMap的不同：
-LinkedHashMap在遍历时按照加入的顺序遍历，HashMap的遍历时无序的遍历
-初始化    Map<Integer,Integer> map=new LinkedHashMap<>();
-遍历（其他的map遍历也是这样遍历）：
+
+Map
+遍历
 Iterator it=map.entrySet().iterator();
 while(it.hasNext()){
    Map.Entry entry=(Map.Entry)it.next();
    System.out.println(entry.getKey()+entry.getValue());
 }
+特殊的map
+LinkedHashMap相比较与HashMap的不同
+LinkedHashMap在遍历时按照加入的顺序遍历，HashMap的遍历时无序的遍历
+Map<Integer,Integer> map=new LinkedHashMap<>();
 
 
+
+Queue
+
+
+
+
+
+
+Stack
+
+
+
+
+ArrayList
+
+特殊
+除了有Arrays.sort(数组名)，还可以Collections.sort(list名)，把list里面的数升序排列
+
+
+
+String的一些函数
 string.substring(6)  得到一个新的string,从原始的6（包含）开始到最后
 string.substring(0,6)  得到一个新的string,从0（包含）到6（不包含）
 String[] arr=string.split(" ")把原始字符串以空格为界搞一个字符串数组
@@ -24,11 +54,6 @@ String[] arr=string.split(" ")把原始字符串以空格为界搞一个字符�
 StringBuilder sb=new StringBuilder() 可以不声明stringbuilder的长度
 sb.append()
 sb.insert(i,数);
-
-
-除了有Arrays.sort(数组名)，还可以Collections.sort(list名)，把list里面的数升序排列
-
-
 
 
 
