@@ -1,0 +1,60 @@
+题意是求在一个没有排好队的数组中，求两个相邻的元素之间相差最大为多少，要求时间空间复杂度都是线性也就是ON 所以不能用Arrays.sort(数组)
+桶排序的时空复杂度都是ON 所以桶排序
+min是所有元素中最小的  max是所有元素中最大的
+就假定最小的和最大的已经分别放到最左边和最右边，然后就往中间插数，
+gap就是每个桶之间的距离应该为多少
+新建的bucketsmin和bucketsmax的长度就是比如4个数，就应该为3个空，往这三个空里插
+插之前初始化
+插的时候碰到最小和最大不插，bucket就是插的位置
+判断的时候先是bucketmin里面的减min 然后bucketmin的下一个桶的位置减bucketmax里面第一个桶的位置，一直到最后，在循环外最大值减去bucketmax最后一个桶
+
+
+
+
+class Solution {
+    public int maximumGap(int[] nums) {
+        if(nums==null||nums.length<2){
+            return 0;
+        }
+        int min=0;
+        int max=0;
+        for(int i=0;i<nums.length;i++){
+            min=Math.min(min,nums[i]);
+            max=Math.max(max,nums[i]);
+        }
+        
+        int length=nums.length;
+        int gap=(int)Math.ceil((double)(max-min)/(length-1));
+        int[] bucketsmin=new int[length-1];
+        int[] bucketsmax=new int[length-1];
+        for(int i=0;i<bucketsmin.length;i++){
+            bucketsmin[i]=Integer.MAX_VALUE;
+        }
+        for(int i=0;i<bucketsmin.length;i++){
+            bucketsmax[i]=Integer.MIN_VALUE;
+        }
+        
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==min||nums[i]==max){
+                continue;
+            }
+            int bucket=(nums[i]-min)/gap;
+            bucketsmin[bucket]=Math.min(nums[i],bucketsmin[bucket]);
+            bucketsmax[bucket]=Math.max(nums[i],bucketsmax[bucket]);
+        }
+        int res=0;
+        int pre=min;
+        for(int i=0;i<length-1;i++){
+            if(bucketsmin[i]==Integer.MAX_VALUE&&bucketsmax[i]==Integer.MIN_VALUE){
+                continue;
+            }
+            res=Math.max(res,bucketsmin[i]-pre);
+            pre=bucketsmax[i];
+        }
+        res=Math.max(res,max-pre);
+        return res;
+        
+        
+        
+    }
+}
