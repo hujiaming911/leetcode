@@ -23,6 +23,7 @@ String[] arr=string.split(" ")把原始字符串以空格为界搞一个字符�
 
 StringBuilder sb=new StringBuilder() 可以不声明stringbuilder的长度
 sb.append()
+sb.insert(i,数);
 
 
 除了有Arrays.sort(数组名)，还可以Collections.sort(list名)，把list里面的数升序排列
