@@ -1,0 +1,30 @@
+class Solution {
+    public int candy(int[] ratings) {
+        int[] candys = new int[ratings.length];
+        for(int i=0;i<candys.length;i++){
+            candys[i]=1;
+        }
+        for(int i=1;i<candys.length;i++){
+            if(ratings[i]>ratings[i-1]){
+                candys[i]=candys[i-1]+1;
+            }
+        }
+        for(int i=ratings.length-2;i>=0;i--){
+            if(ratings[i]>ratings[i+1]){
+                candys[i]=Math.max(candys[i+1]+1,candys[i]);
+            }
+        }
+        int res=0;
+        for(int i=0;i<candys.length;i++){
+            res+=candys[i];
+        }
+        return res;
+    }
+}
+
+
+先给所有人都发一块糖
+然后从左到右来一遍，如果遍历到的比上一个重要，就多给他一块
+然后得从右往左检查一遍 因为可能会出现1 8 7 1 1 这种情况 这样如果不检查7就只能有一块了
+从右往左检查的时候，从倒数第二个开始，但就不是candys[i]=candys[i+1]+1了 因为有可能出现 1 2 3 4 1 这样情况 要满足4，不能1+1，还要考虑他之前要比3多
+所以是candys[i]=Math.max(candys[i+1]+1,candys[i]);
