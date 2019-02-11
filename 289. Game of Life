@@ -1,0 +1,47 @@
+class Solution {
+    public void gameOfLife(int[][] board) {
+        if(board==null||board.length==0){
+            return;
+        }
+        int m=board.length;
+        int n=board[0].length;
+        int lives=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                lives=getnumber(board,i,j);
+                if(board[i][j]==1&&(lives==2||lives==3)){
+                    board[i][j]=3;
+                }else if(board[i][j]==0&&lives==3){
+                    board[i][j]=2;
+                }
+            }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                board[i][j]=board[i][j]>>1;
+            }
+        }
+    }
+    private int getnumber(int[][] board, int i, int j){
+        int count=0;
+        for(int x=Math.max(0,i-1);x<=Math.min(i+1,board.length-1);x++){
+            for(int y=Math.max(0,j-1);y<=Math.min(j+1,board[0].length-1);y++){
+                if(x==i&&y==j){
+                    continue;
+                }else{
+                    count+=board[x][y]&1;
+                }
+            }
+        }
+        return count;
+    }
+}
+
+
+这个题就是一个简单的实现题，实现的目标就是如果本身是活细胞，周围（8个）活细胞的个数等于2或者3就可以继续活
+如果本身是死细胞，如果周围活细胞个数等于3就可以复活
+方法就是用移位的操作  活是1  死是0   继续活就变成3（11）   死变活就变成2（10）  然后往右一移
+
+要记住的就是给定一个二维数组的位置，如何遍历它四周的数
+注意不能超出边界，方法就是getnumber的方法  范围x肯定是在i-1到i+1之间，但不能超出边界
+for(int x=Math.max(0,i-1);x<=Math.min(i+1,board.length-1);x++){}
