@@ -1,0 +1,54 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if(nums1.length>nums2.length){
+            return (findMedianSortedArrays(nums2,nums1));
+        }
+        int len=nums1.length+nums2.length;
+        int cut1=0;
+        int cut2=0;
+        int cutL=0;
+        int cutR=nums1.length-1;
+        while(cut1<=nums1.length){
+            cut1=(cutR-cutL)/2+cutL;
+            cut2=len/2-cut1;
+            double L1=(cut1==0)?Integer.MIN_VALUE:nums1[cut1-1];
+            double L2=(cut2==0)?Integer.MIN_VALUE:nums2[cut2-1];
+            double R1=(cut1==nums1.length)?Integer.MAX_VALUE:nums1[cut1];
+            double R2=(cut2==nums2.length)?Integer.MAX_VALUE:nums2[cut2];
+            if(L1>R2){
+                cutR=cut1-1;
+            }else if(L2>R1){
+                cutL=cut1+1;
+            }else{
+                if(len%2==0){
+                    L1=(L1>L2)?L1:L2;
+                    R1=(R1<R2)?R1:R2;
+                    return (L1+R1)/2;
+                }else{
+                    R1=(R1<R2)?R1:R2;
+                    return R1;
+                }
+            }
+            
+        }
+        return -1;
+    }
+}
+
+这个题是要求把两个排列好的数组放到一起再排列好找到中位数
+暴力解不可取
+因为要求时间复杂度是Olog(min(m,n))   log就一定是二分法  min(m,n)就是取两个数组最小的长度作为log的参数
+两个数组
+3  5   8   9  
+1  2   7   10   11  12
+合到一起就是1 2 3 5 7 8 9 10 11 12
+中位数就是7＋8的和除以2  7与8怎么来的呢？
+第一个数组 L1=5  R1=8
+第二个数组 L2=7  R2=10  
+这个时候L1与L2取大的   R1与R2取小的 就是了
+那么为什么L1 R1 L2 R2可以取到那个位置呢？
+因为此时L1<R2且L2<R1
+
+那就明白了，就是取一个长度小的数组切他，切他的同时也相当于切了另一个数组（因为两个数组合起来之后中间切一刀两边数的数量是固定的），
+切这个数组就是的时间复杂度就是Olog(min(m,n))
+代码中L1 L2 R1 R2分别表示数组12切之后的位置   cutL和cutR就是表示不断切数组1的二分法    cut1和cut2就是分别表示切之后左边有几个数，cut2随cut1变
