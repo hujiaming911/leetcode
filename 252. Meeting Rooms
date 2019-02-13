@@ -1,0 +1,16 @@
+public class MeetingRooms{
+  public boolean canAttendMeetings(Interval[] intervals){
+      Arrays.sort(intervals,(a,b)->a.start-b.start);
+      for(int i=1;i<intervals.length;i++){
+         if(intervals.get(i).end<intervals.get(i-1).start){
+            return false;
+         }
+      }
+      return true;
+     }
+}
+
+
+这个题付费所以简单介绍一下题
+intervals是一个无序的数组，里面包含着Interval这个类，这个类有start和end
+看一个人是不是能够参加所有的会议 也就是把他排序之后看有没有交集
