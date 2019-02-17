@@ -1,0 +1,34 @@
+class MedianFinder {
+
+    /** initialize your data structure here. */
+    PriorityQueue<Long> large =null;
+    PriorityQueue<Long> small =null;
+    
+    public MedianFinder() {
+        large=new PriorityQueue<>();
+        small=new PriorityQueue<>();
+    }
+    
+    public void addNum(int num) {
+        large.offer((long)num);
+        small.offer(-large.poll());
+        if(large.size()<small.size()){
+            large.offer(-small.poll());
+        }
+    }
+    
+    public double findMedian() {
+        if(large.size()==small.size()){
+            return (double)(large.peek()-small.peek())/2;
+        }else{
+            return large.peek();
+        }
+    }
+}
+
+
+中位数
+两个priorityqueue
+priorityqueue的特点就是poll和peek会吐出最小的那个
+先往large里放，然后large吐出来加负号放进small  如果large的size()小于small的size就把small里面吐出来加负号放进large
+最后结果就是large始终存放着正的数  small始终存放着其他的相对应的负的数
