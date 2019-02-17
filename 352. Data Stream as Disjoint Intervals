@@ -1,0 +1,69 @@
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class SummaryRanges {
+
+    /** Initialize your data structure here. */
+    TreeMap<Integer, Interval> treemap=null;
+    public SummaryRanges() {
+        treemap=new TreeMap<>();
+    }
+    
+    public void addNum(int val) {
+        if(treemap.containsKey(val)){
+            return;
+        }
+        Integer lower=treemap.lowerKey(val);
+        Integer higher=treemap.higherKey(val);
+        if(lower!=null&&higher!=null&&treemap.get(lower).end+1==val&&val+1==treemap.get(higher).start){
+            
+            treemap.get(lower).end=treemap.get(higher).end;
+            treemap.remove(higher);
+            
+        }else if(lower!=null&&treemap.get(lower).end+1>=val){
+            
+            treemap.get(lower).end=Math.max(treemap.get(lower).end,val);
+            
+        }else if(higher!=null&&higher==val+1){
+            
+            treemap.put(val,new Interval(val,treemap.get(higher).end));
+            treemap.remove(higher);
+            
+        }else{
+            treemap.put(val,new Interval(val,val));
+        }
+    }
+    
+    public List<Interval> getIntervals() {
+        return new ArrayList<>(treemap.values());
+    }
+}
+
+/**
+ * Your SummaryRanges object will be instantiated and called as such:
+ * SummaryRanges obj = new SummaryRanges();
+ * obj.addNum(val);
+ * List<Interval> param_2 = obj.getIntervals();
+ */
+ 
+ 
+ 第一个函数是构造函数，初始化Treemap   
+ 第三个函数是返回函数，返回Treemap储存的所有interval  注意treemap.values()可以直接返回所有map的value
+ 第二个函数是需要注意的  这个treemap的integer就是interval的start位置上的  而interval包含start和end
+ treemap.lowerKey(val)返回比val小的最大值   treemap.higherKey(val)返回比val大的最小值， 要注意Key的储存的是start
+ 当一个val没有lower和higher的时候(第四种情况)
+ 就像刚放进去第一个数 当然要以它自己为Key新建一个interval
+ 当一个val没有higher只有lower的时候（第二种情况）
+ 假如val=7  lower=4  虽然lower=4  但有可能map.get(lower).end和7是连着的  map.get(lower).end=5连不上 map.get(lower).end=6连得上
+ map.get(lower).end=7连得上  map.get(lower).end=8连得上  此时原key的interval.end就取最大值即可
+ 当一个val没有lower只有higher的时候（第三种情况）
+ 那这个higher的interval肯定是[higher,大于等于higher]，所以此时val如果想和这个interval连起来，就必须val+1=higher
+ 此时这个val是更小的，所以要以他建立interval，并删除以前的以higher为key的interval
+ 第一种情况就很好理解了
+ 
