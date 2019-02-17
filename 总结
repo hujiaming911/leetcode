@@ -122,6 +122,10 @@ deque.peekFirst();
 deque.peekLast();
 
 
+PriorityQueue的队列保证了poll的每一个都是当前队列里最小的
+PriorityQueue<Integer> priorityqueue=new PriorityQueue<>();
+
+
 
 
 ArrayList
