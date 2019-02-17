@@ -1,0 +1,17 @@
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int[] dp=new int[nums.length];
+        dp[0]=nums[0];
+        int res=nums[0];
+        for(int i=1;i<nums.length;i++){
+            dp[i]=nums[i]+(dp[i-1]>0?dp[i-1]:0);
+            res=Math.max(res,dp[i]);
+        }
+        return res;
+    }
+}
+
+从index=1开始遍历nums
+如果之前的dp<0，证明之前的如果加到当前的数上，对当前的数是个累赘，所以此时就不要之前的数了，从它自己开始一个新的，所以此时dp[i]=nums[i]+0
+如果之前的dp>0, 说明之前的数可以加到当前的数上看看结果
+res始终保持最大的dp   假如dp=4   然后碰到一个-3使得dp=1了 此时res还保持4 接下来的数还是可以包括这个-3的，因为到这个-3时
