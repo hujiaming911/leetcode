@@ -53,7 +53,11 @@ while(it.hasNext()){
    System.out.println(entry.getKey()+entry.getValue());
 }
 
+不需要Key的遍历
+直接map.values()就可以得到所有的value
+
 特殊的map
+TreeMap也是特殊的map
 LinkedHashMap相比较与HashMap的不同
 LinkedHashMap在遍历时按照加入的顺序遍历，HashMap的遍历时无序的遍历
 Map<Integer,Integer> map=new LinkedHashMap<>();
