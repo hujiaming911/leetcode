@@ -1,0 +1,29 @@
+这个题leetcode要钱
+讲一下题意
+给一个interval[]有start和end,分别代表会议的开始时间和结束时间
+问最少安排几个会议室能把所有会议安排了
+public class MeetingRoom{
+   public int minMeetingRoom(Interval[] intervals){
+      int[] start=new int[intervals.length];
+      int[] ends=new int[intervals.length];
+      for(int i=0;i<intervals.length;i++){
+        start[i]=intervals[i].start;
+        ends[i]=intervals[i].end;
+      }
+      Arrays.sort(start);
+      Arrays.sort(ends);
+      int end=0;
+      int res=0;
+      for(int i=0;i<intervals.length;i++){
+         if(start[i]<ends[end]){
+            res++;
+         }else{
+            end++;
+         }
+      }
+      return res;
+   }
+}
+
+
+把start排序放好 把end排序放好  如果start<end就说明得安排一个房间，如果一直到某一个start>end了就说明有一个会议结束了，把end往后推一个
