@@ -58,6 +58,7 @@ while(it.hasNext()){
 
 特殊的map
 TreeMap也是特殊的map
+Treemap的特殊方法   treemap.lowerKey(val);  得到比val小的最大元素  treemap.higherKey(val); 得到比val大的最小元素
 LinkedHashMap相比较与HashMap的不同
 LinkedHashMap在遍历时按照加入的顺序遍历，HashMap的遍历时无序的遍历
 Map<Integer,Integer> map=new LinkedHashMap<>();
