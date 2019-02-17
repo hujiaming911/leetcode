@@ -1,0 +1,28 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums==null||nums.length==0){
+            return new int[0];
+        }
+        int[] result=new int[nums.length+1-k];
+        Deque<Integer> deque =new LinkedList<>();
+        for(int i=0;i<nums.length;i++){
+            if(!deque.isEmpty()&&deque.peekFirst()+k==i){
+                deque.removeFirst();
+            }
+            while(!deque.isEmpty()&&nums[deque.peekLast()]<nums[i]){
+                deque.removeLast();
+            }
+            deque.addLast(i);
+            if(i+1>=k){
+                result[i+1-k]=nums[deque.peekFirst()];
+            }
+        }
+        return result;
+    }
+}
+
+deque是一个特殊的数据结构，能addFirst()  addLast()  removeFirst()  removeLast()  peekFirst()  peekLast()
+这个题就是利用了deque  result的长度根据例子也能看出来是length+1-k
+deque存储的是index 这个index是按照nums[index]降序排列的  要始终保持deque中存储的index所对应的nums[index]是降序的
+第一个if是为了保持窗口大小的  第二while就是为了保证deque中是降序的 从原有的deque后面开始看，如果小于当前值，就抛弃 始终保持降序
+最后一个if语句就是从满足条件的i开始就要把deque最前面的放进数组中
