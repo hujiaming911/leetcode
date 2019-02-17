@@ -110,6 +110,14 @@ while(!s.empty()){
    s.pop();
 }
 
+Deque
+Deque<Integer> deque=new LinkedList<>();
+deque既可以像stack一样 又可以像queue一样
+deque.addFirst();
+deque.addLast();
+deque.removeFirst();
+deque.peekFirst();
+
 
 
 
