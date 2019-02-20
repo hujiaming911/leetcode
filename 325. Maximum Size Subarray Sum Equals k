@@ -1,0 +1,24 @@
+这个题leetcode要钱，解释一下题意先
+给一个数组，给一个固定值k，这个数组中连续加起来的数等于k的最大长度为多少
+
+public int maxSubArrayLen(int[] nums, int k){
+  int max=0;
+  int sum=0;
+  Map<Integer,Integer> map=new HashMap<>();
+  for(int i=0;i<nums.length;i++){
+    sum=sum+nums[i];
+    if(sums=k){
+      max=i+1;
+    }else if(map.containsKey(sum-k)){
+      max=Math.max(max,i-map.get(sum-k));
+    }
+    map.put(sum,i);
+  }
+  return max;
+}
+
+
+
+map中key存放的是到目前为止的和，value存放的是目前为止的index，从头开始累积，如果累积的数正好就等于k值了，那正好就把index+1赋给max了，如果要是
+累积的数不等于k值，那就查看累积到当前的数sum-之前累积到某一点的值是不是等于k（也就是map.containsKey(sum-k)），如果是的话，就把max再赋值
+最后输出max
