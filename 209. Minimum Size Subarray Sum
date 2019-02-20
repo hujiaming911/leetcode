@@ -1,0 +1,21 @@
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int left=0;
+        int sum=0;
+        int result=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            sum=sum+nums[i];
+            while(sum>=s&&left<=i){
+                result=Math.min(result,i-left+1);
+                sum=sum-nums[left];
+                left++;
+            }
+        }
+        return result==Integer.MAX_VALUE?0:result;
+    }
+}
+
+
+从开始积累，一直积累到大于等于s的时候，开始收这个window。把这个window的左边的值减掉，左边往前移一位，一直移到sum小于s，此时的result就是最小的了
+
+这题可以归为two points
