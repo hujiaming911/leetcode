@@ -161,6 +161,7 @@ String的一些函数
 string.substring(6)  得到一个新的string,从原始的6（包含）开始到最后
 string.substring(0,6)  得到一个新的string,从0（包含）到6（不包含）
 String[] arr=string.split(" ")把原始字符串以空格为界搞一个字符串数组
+string1.contains(string2)如果string1里面包括string2的话
 
 StringBuilder sb=new StringBuilder() 可以不声明stringbuilder的长度
 sb.append()
