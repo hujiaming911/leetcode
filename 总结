@@ -26,6 +26,8 @@ TreeSet会自动排序
 
 
 Map
+初始化
+HashMap<Character,Integer> map=new HashMap<>()
 
 添加
 map.put()
