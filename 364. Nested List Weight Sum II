@@ -2,3 +2,28 @@
 如果是[[1,1],2,[1,1]]这样的话  2反而是两层    而两组1都是1   
 思路还是DFS    对于反过来，就是先算一遍，然后带上它再算一遍  这样就实现了反过来
 如果说第一道题的关键是记录层次，那么这一题的关键是把这一层的integer sum传到下一层去
+
+class Solution {
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        if(nestedList.size()==0){
+            return 0;
+        }
+        return dfs(nestedList,0);
+    }
+    public int dfs(List<NestedInteger> nestedList,int total){
+        int current=0;
+        List<NestedInteger>  nextLevel=new ArrayList<>();
+        for(NestedInteger each:nestedList){
+            if(each.isInteger()){
+                current+=each.getInteger();
+            }else{
+                nextLevel.addAll(each.getList());
+            }
+        }
+        if(nextLevel.size()==0){
+            return current+total;
+        }else{
+            return current+dfs(nextLevel,current);
+        }
+    }
+}
