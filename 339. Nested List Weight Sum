@@ -1,0 +1,29 @@
+给了一个NestedInteger的类
+这个类里面可能是数字，也可能是一个list 
+有nestedinteger.getInteger() 和  nestedinteger.getList()这两个方法
+现在把这个NestedInteger包起来作为一个list  返回一个值 这个值等于里面所有数字×该数字嵌套几层list的和
+
+public int depthSum(List<NestedInteger> nestedList){
+
+   if(nestedList.size()==0){
+      return 0;
+   }
+   return helper(nestedList,1);
+
+}
+
+public int helper(List<NestedInteger> nestedList,depth){
+    int result=0;
+   for(NestedInteger nest:nestedList){
+      if(nest.isInteger()){
+         result+=nest.getInteger()*depth;
+      }else{
+        result+=helper(nest.getList(),depth+1);
+      }
+   }
+   return result;
+}
+
+
+
+注意nest.isInteger()这个方法
