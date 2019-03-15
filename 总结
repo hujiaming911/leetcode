@@ -179,3 +179,4 @@ while(sc.hasNext()){
   sc.nextLine()  下一个String，见到换行才停止
   sc.nextInt()  下一个int
 }
+string.toUpperCase()  表示把字符串全变成大写
